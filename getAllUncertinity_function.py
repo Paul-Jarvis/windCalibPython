@@ -14,7 +14,6 @@ def getAllUncertinity(vent_x,vent_z,x_select,y_select,cam, Ori, P_vent, min_FOVH
     
     [dist, height, lambda_] = Calibrate_allTogether(vent_x,vent_z,x_select,y_select,cam,Ori,P_vent)
     
-    
     x_select_upper = np.zeros(np.size(x_select))
     x_select_lower = np.zeros(np.size(x_select))
     y_select_upper = np.zeros(np.size(x_select))

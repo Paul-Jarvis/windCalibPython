@@ -7,6 +7,7 @@ Created on Sun Jun  5 19:41:22 2022
 import netCDF4
 import numpy as np
 from datetime import date
+import sys
 from scipy.interpolate import interp1d
 from datetime import datetime as dt
 
@@ -15,24 +16,27 @@ def datenum(d):
 
 
 
-def extract_weather(filename,b):
+def extract_weather(windFile, b, geopotFile, vent_lat, vent_long):
     
 # read in the netCDF file
-    f = netCDF4.Dataset(filename)
+    f_wind = netCDF4.Dataset(windFile)
+    f_geopot = netCDF4.Dataset(geopotFile)
     
-    z = f.variables['z']
-    time = f.variables['time']
-    pres = f.variables['level']
-    temp = f.variables['t']
-    u = f.variables['u']
-    v = f.variables['v']
-    r_h = f.variables['r']
+    z = f_geopot['z'][:]
+    time = f_wind['time'][:]
+    #pres = f.variables['level']
+    #temp = f.variables['t']
+    u = f_wind['u'][:]
+    v = f_wind['v'][:]
+    #r_h = f.variables['r']
+    lat = f_geopot['latitude'][:]
+    long = f_geopot['longitude'][:]
     
-    temp = np.squeeze(temp)
+    #temp = np.squeeze(temp)
     z = np.squeeze(z)
     u = np.squeeze(u)
     v = np.squeeze(v)
-    r_h = np.squeeze(r_h)
+    #r_h = np.squeeze(r_h)
     
     z = z/9.80665
     
@@ -43,22 +47,38 @@ def extract_weather(filename,b):
     end_time =  datenum(d)
     
     time_want = (end_time - start_time)*24
-    time = np.squeeze(time)
+    #time = np.squeeze(time)
+    #temp_interp_f = interp1d(time,np.transpose(temp))#,time_want)
+    #new_temp = temp_interp_f(time_want)
+
+    if time_want > time[-1] or time_want < time[1]:
+        print('error with the selected time')
+        sys.exit()
+
+    ## select data for the time I want
+    row_t = np.nonzero((time - np.round(time_want)) == 0) # Select time in the 4D matrix
+    row_lat = np.nonzero((lat - vent_lat) == 0) #Select latitude in the 4D matrix
+    row_long = np.nonzero((long - vent_long) == 0) #Select longitude in the 4D matrix
+    #print(row_long)
+    #print(row_lat)
+    #print(row_t)
+    #print(np.shape(z))
+
+    #z = z[row_long, row_lat, :, row_t]
+    #u = u[row_long, row_lat, :, row_t]
+    #v = v[row_long, row_lat, :, row_t]
+
+    z = z[row_t, :, row_lat, row_long]
+    u = u[row_t, :, row_lat, row_long]
+    v = v[row_t, :, row_lat, row_long]
+
+    new_z = np.squeeze(z);
+    new_u = np.squeeze(u);
+    new_v = np.squeeze(v);
     
-    temp_interp_f = interp1d(time,np.transpose(temp))#,time_want)
-    new_temp = temp_interp_f(time_want)
-    
-    z_interp_f = interp1d(time,np.transpose(z))#,time_want)
-    new_z = z_interp_f(time_want)
-    
-    u_interp_f = interp1d(time,np.transpose(u))#,time_want)
-    new_u = u_interp_f(time_want)
-    
-    v_interp_f = interp1d(time,np.transpose(v))#,time_want)
-    new_v = v_interp_f(time_want)
     
     class netCDF:
-        temp = new_temp
+        #temp = new_temp
         z = new_z
         u = new_u
         v = new_v

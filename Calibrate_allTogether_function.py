@@ -18,9 +18,13 @@ def Calibrate_allTogether(vent_x,vent_z,x_select,y_select,cam,Ori,P_vent):
         j= int(j)
         P_pixel = [x_select[j],y_select[j]]
         [diff_z, diff_x] = calibrate(cam,P_pixel)
+
         distanceFromVent_P1 = abs(diff_x - vent_x)
-            
+
         [x,y,z,lambda_,w_tilde] = calibrateWind(Ori,cam,distanceFromVent_P1,P_vent,P_pixel)
+
+        #print(z)
+        #wait = input("Press Enter to continue.")
         
         if cam.oriCentreLine + 180 <360:
             omega_prime = cam.orCentrLine + 180
