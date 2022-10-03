@@ -15,7 +15,7 @@ from calibrate_function import calibrate
 from extractWeather_function import extract_weather
 from getAllUncertinity_function import getAllUncertinity
 
-## Script to calibrate image pixels to 
+## Script to run windyPlume for example of Etna 2013
 
 ## %%%%%%%%%%%%%% User Input Section %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -25,62 +25,62 @@ base_location = '/home/paulj/Documents/windCalib/pythonVersion'
     
 ## %%% Update pixels to claibrate %%%
 ## % - can be vectors for multiple points to calibrate
-readPoints = 'y' #If 'y', read points from file (define dataFile, xCol and
+readPoints = 'n' #If 'y', read points from file (define dataFile, xCol and
                   #yCol). If 'n', define x_point, y_point.
-dataFile = '/scratch/paulj/sabancaya/processedData/20180808T1123/output/height.dat';
-xCol = 3 #Column of data file containing x-coordinate of pixels
-yCol = 8 #Column of data file containing y-coordinate of pixels
-#x_point = [300 200]; # x coordinate of pixel to claibrate in image frame
-#y_point = [300 200]; # y coordinate of pixel to claibrate in image frame
+# dataFile = '/scratch/paulj/sabancaya/processedData/20180808T1123/output/height.dat';
+# xCol = 3 #Column of data file containing x-coordinate of pixels
+# yCol = 8 #Column of data file containing y-coordinate of pixels
+x_point = np.array([500, 600]) # x coordinate of pixel to claibrate in image frame
+y_point = np.array([20, 30]) # y coordinate of pixel to claibrate in image frame
 
 ## %%% Set filename of the image frame %%%
-imageFrame = '/scratch/paulj/sabancaya/processedData/20180808T1123/output/frames/1.png'
+imageFrame = 'exampleData/Etna2013/get_vent.jpg'
     
 # %%% Set weather data %%%
 # Vector of year, month, day, hour, minute, second of time at which to 
 # calibrate
-b = "2018-08-08 16:26"
+b = "2013-11-23 10:20"
 
 #Names of netCDF files containing wind and geopotential data. If files are
 #the same, give same name for both.
-windFilename = '/scratch/paulj/sabancaya/weather/wind.nc'
-geopotFilename = '/scratch/paulj/sabancaya/weather/geopot.nc'
+windFilename = 'exampleData/Etna2013/Nov_2013.nc'
+geopotFilename = 'exampleData/Etna2013/Nov_2013.nc'
 
-topPoint_Wind = 6900 # Height (in m a.s.l) which defines the upper limit 
+topPoint_Wind = 12000 # Height (in m a.s.l) which defines the upper limit 
                      #of height range to claulate the wind orientation over
 
 ## %%% Set camera properties %%%
 class cam:
-    pixel_width   = 640    # Width in pixels of image frame
-    pixel_height  = 480    # Height in pixels of image frame
-    FOV_H         = 24     # Horizontal field of view of the camera
-    z_cam         = 4957.9 # Height of the camera in m a.s.l
-    oriCentreLine = 252    # Orientation of the camera to the centre of 
+    pixel_width   = 704    # Width in pixels of image frame
+    pixel_height  = 608    # Height in pixels of image frame
+    FOV_H         = 18     # Horizontal field of view of the camera
+    z_cam         = 35     # Height of the camera in m a.s.l
+    oriCentreLine = 351.5  # Orientation of the camera to the centre of 
                            #the image frame
-    dist2plane    = 20600  # Distance between the camera and the plane for 
+    dist2plane    = 26200  # Distance between the camera and the plane for 
                            #which points will be calibrated on
     ## %%% IF cam.incl in set to -100 i.e., unknown camera, inclination, update 
     ## %   cam.dist2ref, vent.z_ref and vent.centre_pixel_height %%%
-    incl = -100 # Inclination of the camera in degrees (put as -100 if 
+    incl = -100.0 # Inclination of the camera in degrees (put as -100 if 
                 # unknown)
-    dist2ref             = 20700 # Distance between the camera loction and 
+    dist2ref             = 27300 # Distance between the camera loction and 
                                   #a known point in the image frame
 
-min_FOVH = 23.9625 # Minimum value of the horizontal field of view of the 
+min_FOVH = 16 # Minimum value of the horizontal field of view of the 
                    # camera (lower bound of the uncertinity)
-max_FOVH = 24.0375 # Maximum value of the horizontal field of view of the 
+max_FOVH = 20 # Maximum value of the horizontal field of view of the 
                    # camera (upper bound of the uncertinity)
     
 class vent:
-    z_ref               = 5900  # Height in m a.s.l of a known point in 
+    z_ref               = 3300  # Height in m a.s.l of a known point in 
                                   #the image frame (same at the point 
                                   #defined on line 29)
-    centre_pixel_height = 447   # Pixel value in the y direction of a 
+    centre_pixel_height = 498   # Pixel value in the y direction of a 
                                   #known point in the image frame (same at 
                                   #the point defined on line 29)
     
 ## %%% Set vent properties
-ventKnown = 'y'    #If 'n', needs to be determined
+ventKnown = 'n'    #If 'n', needs to be determined
 x_pixel_vent = 548 #Pixel coordinates of vent. Don't need to be entered 
                     #if ventKnown = 'n'
 y_pixel_vent = 447
@@ -89,7 +89,7 @@ ventLat = -15.75
 ventLong = -71.75
     
 ## %%% Outfile
-outFile = '/scratch/paulj/sabancaya/processedData/20180808T1123/output/windCorrTest.dat';
+outFile = 'exampleData/Etna2013/windHeight.csv';
     
 ## %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ## %% Calculate other camera properties
@@ -111,7 +111,7 @@ if ventKnown == 'n':
     # Manually select the position of the vent from which the plume origintes from
     pts = plt.ginput(n=1,timeout=30, show_clicks=True)
     x_pixel_vent = pts[0][0]
-    y_pixel_vent = pts[0]/[1]                              
+    y_pixel_vent = pts[0][1]                              
 
 # Put pixel position of the vent into vector where position (1) is the x
 # position and (2) is the y position. y position is adjusted as 0 starts at

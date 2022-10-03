@@ -9,7 +9,7 @@ This is a temporary script file.
 import numpy as np
 import os
 # import cv2
-import imageio
+# import imageio
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
 import math 
@@ -26,8 +26,9 @@ y_select_ul = np.array([20, 30])
 
 b = "2013-11-23 10:20"    
 
-w_filename = 'Nov_2013.nc'
-
+w_filename = 'exampleData/Etna2013/Nov_2013.nc'
+ventLat = 999
+ventLong = 999
 # 
 # define calibration constants
 class cam:
@@ -64,7 +65,7 @@ cam.incl = incl
 #Determine values for the vent
 # os.chdir('..')
  # 
-im = plt.imread('get_vent.jpg')   
+im = plt.imread('exampleData/Etna2013/get_vent.jpg')   
 plt.figure()
 plt.imshow(im)
 
@@ -87,7 +88,7 @@ vent_x = diff_h
 # os.chdir('..')
 
 # #  Extract weather
-netCDF = extract_weather(w_filename,b)
+netCDF = extract_weather(w_filename,b, w_filename, ventLat, ventLong)
 
 z_array = np.linspace(vent_z,12000, num = 1000)
 

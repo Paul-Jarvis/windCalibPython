@@ -30,8 +30,8 @@ readPoints = 'y' #If 'y', read points from file (define dataFile, xCol and
 dataFile = '/scratch/paulj/sabancaya/processedData/20180808T1123/output/height.dat';
 xCol = 3 #Column of data file containing x-coordinate of pixels
 yCol = 8 #Column of data file containing y-coordinate of pixels
-#x_point = [300 200]; # x coordinate of pixel to claibrate in image frame
-#y_point = [300 200]; # y coordinate of pixel to claibrate in image frame
+#x_point = [300 200]; % x coordinate of pixel to claibrate in image frame
+#y_point = [300 200]; % y coordinate of pixel to claibrate in image frame
 
 ## %%% Set filename of the image frame %%%
 imageFrame = '/scratch/paulj/sabancaya/processedData/20180808T1123/output/frames/1.png'
@@ -106,12 +106,12 @@ if ventKnown == 'n':
     A = plt.imread(imageFrame)   # Load in imageFrame
 
     plt.figure() # Display imageFrame
-    plt.imshow(A)
+    plt.imshow(im)
 
     # Manually select the position of the vent from which the plume origintes from
     pts = plt.ginput(n=1,timeout=30, show_clicks=True)
-    x_pixel_vent = pts[0][0]
-    y_pixel_vent = pts[0]/[1]                              
+    x_pixel_vent = pts[0]
+    y_pixel_vent = pts[1]                              
 
 # Put pixel position of the vent into vector where position (1) is the x
 # position and (2) is the y position. y position is adjusted as 0 starts at

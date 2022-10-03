@@ -55,27 +55,35 @@ def extract_weather(windFile, b, geopotFile, vent_lat, vent_long):
         print('error with the selected time')
         sys.exit()
 
-    ## select data for the time I want
-    row_t = np.nonzero((time - np.round(time_want)) == 0) # Select time in the 4D matrix
-    row_lat = np.nonzero((lat - vent_lat) == 0) #Select latitude in the 4D matrix
-    row_long = np.nonzero((long - vent_long) == 0) #Select longitude in the 4D matrix
-    #print(row_long)
-    #print(row_lat)
-    #print(row_t)
-    #print(np.shape(z))
+    ## select data for the time I want    
+    if z.ndim == 4:
+        ## In this case, the netCDF file contains data at multiple latitudes
+        ## and/or longitudes
+        
+        row_t = np.nonzero((time - np.round(time_want)) == 0) # Select time in the 4D matrix
+        row_lat = np.nonzero((lat - vent_lat) == 0) #Select latitude in the 4D matrix
+        row_long = np.nonzero((long - vent_long) == 0) #Select longitude in the 4D matrix
 
-    #z = z[row_long, row_lat, :, row_t]
-    #u = u[row_long, row_lat, :, row_t]
-    #v = v[row_long, row_lat, :, row_t]
+        z = z[row_t, :, row_lat, row_long]
+        u = u[row_t, :, row_lat, row_long]
+        v = v[row_t, :, row_lat, row_long]
 
-    z = z[row_t, :, row_lat, row_long]
-    u = u[row_t, :, row_lat, row_long]
-    v = v[row_t, :, row_lat, row_long]
+        new_z = np.squeeze(z)
+        new_u = np.squeeze(u)
+        new_v = np.squeeze(v)
 
-    new_z = np.squeeze(z);
-    new_u = np.squeeze(u);
-    new_v = np.squeeze(v);
-    
+    elif z.ndim == 2:
+        ## In this case, the netCDF files contains data at a single latitude and
+        ## longitude
+        z_interp_f = interp1d(time,np.transpose(z))#,time_want)
+        new_z = z_interp_f(time_want)
+
+        u_interp_f = interp1d(time,np.transpose(u))#,time_want)
+        new_u = u_interp_f(time_want)
+
+        v_interp_f = interp1d(time,np.transpose(v))#,time_want)
+        new_v = v_interp_f(time_want)        
+        
     
     class netCDF:
         #temp = new_temp
