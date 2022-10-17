@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Fri Sep 30 11:15:46 2022
+Created on Mon Oct 17 14:27 2022
 
 @author: pjarvis
 """
@@ -24,7 +24,7 @@ from getAllUncertinity_function import getAllUncertinity
 ## % - can be vectors for multiple points to calibrate
 readPoints = 'y' #If 'y', read points from file (define dataFile, xCol and
                   #yCol). If 'n', define x_point, y_point.
-dataFile = '/scratch/paulj/sabancaya/processedData/20180808T1123/output/height.dat';
+dataFile = '/SabancayaExample';
 xCol = 3 #Column of data file containing x-coordinate of pixels
 yCol = 8 #Column of data file containing y-coordinate of pixels
 #x_point = [300 200]; # x coordinate of pixel to claibrate in image frame

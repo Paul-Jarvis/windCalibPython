@@ -19,9 +19,6 @@ from getAllUncertinity_function import getAllUncertinity
 
 ## %%%%%%%%%%%%%% User Input Section %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-## %%% Update Filepath %%%
-# Filepath for which the functions folder is located at
-base_location = '/home/paulj/Documents/windCalib/pythonVersion'
     
 ## %%% Update pixels to claibrate %%%
 ## % - can be vectors for multiple points to calibrate
