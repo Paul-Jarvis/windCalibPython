@@ -52,7 +52,7 @@ def calibrateWind(Ori,cam,distanceFromVent,P_vent,P_pixel):
     b = distanceFromVent
     chi = (P_pixel[1] * FOV_V)/ pixel_height
     di = incl - (FOV_V/2) + chi
-    
+
     if (90 < w_tilde) and (w_tilde < 180) or (270 <= w_tilde) and (w_tilde < 360):
         cos_h = math.cos(math.radians(alpha - (FOV_H/2) - lambda_))
         sin_lambda = math.sin(math.radians(lambda_))

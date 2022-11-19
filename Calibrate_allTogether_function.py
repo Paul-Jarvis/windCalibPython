@@ -13,9 +13,9 @@ from calibrateWind_function import calibrateWind
 def Calibrate_allTogether(vent_x,vent_z,x_select,y_select,cam,Ori,P_vent):
     dist = np.zeros(np.size(x_select))
     height = np.zeros(np.size(x_select))
-    
+
     for j in np.linspace(0,np.size(x_select)-1,np.size(x_select)):
-        j= int(j)
+        j = int(j)
         P_pixel = [x_select[j],y_select[j]]
         [diff_z, diff_x] = calibrate(cam,P_pixel)
 
