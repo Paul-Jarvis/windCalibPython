@@ -2,7 +2,7 @@
 
 windyPlume is a collection of Python scripts that can be used to calibrate images
 of wind-affected volcanic plumes. For a full description of how the software
-works see a) comments in code and b) manuscript by Snee et al.
+works see a) comments in code and b) manuscript by Snee et al. (in prep)
 
 ## Contents:
 
@@ -28,6 +28,40 @@ getAllUncertainty_function.py - Function called by Script_2_Calibrate.py -
                                 Performs the calubration for different values of
 				input parameters corresponding to the ranges of
 				their uncertainties
+
+SabancayaExample.py - Version of Script_2_Calibrate used to analyse eruption of
+                      Sabancaya volcano on 31/07/2018, as presented in Snee et
+		      al. (in prep).
+
+exampleData - Directory containing example data pertaining to the 31/07/2018
+              eruption of Sabancaya presented in Snee et al. (in prep).
+
+exampleData/Sabancaya2018/geopot.nc - NetCDF file containing geopotential data
+                                      above Sabancaya volcano on 31/07/2028,
+				      used for the wind calibration. Data
+				      downloaded from
+				      https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-pressure-levels?tab=overview
+
+exampleData/Sabancaya2018/plume.jpg - Example of frame from video of eruption.
+                                      The full video can be found as Supporting
+				      Information to Snee et al. (in prep).
+
+exampleData/Sabancaya2018/plumeParameters.csv - Datafile including the pixel
+                                                coordinates of the top of the
+						plume in each frame from the
+						video of the eruption. File
+						created using the PlumeTraP
+						software (Simionato et al.,
+						2022)
+
+exampleData/Sabancaya2018/windHeight.csv - Output from windyPlume showing the
+                                           plume height (a.s.l) (column 2) as a
+					   function of time (s) (column 1)
+
+exampleData/Sabancaya/wind.nc - NetCDF file containing geopotential data above
+                                Sabancaya volcano on 31/07/2028, used for the
+				wind calibration. Data downloaded from
+				https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-pressure-levels?tab=overview
 
 ## Pre-requisites
 
@@ -86,7 +120,12 @@ Paul Jarvis
 
 ## References
 
-Snee, et al. (in prep) - Image analysis of volcanic plumes: A simple calibration
-tool to correct for the effect of wind
+Simionato, R., Jarvis, P. A., Rossi, E. & Bonadonna, C. (2022). PlumeTraP: A New
+MATLAB-Based Algorithm to Detect and Parameterize Volcanic Plumes from Visible
+Wavelength Images. Rem. Sens., 14(7), 1766. https://doi.org/10.3390/rs14071766
+
+Snee, E., Jarvis, P. A., Simionato, R., Scollo, S., Prestifilippo, M., Degruyter,
+W. & Bonadonna, C. (in prep). Image analysis of volcanic plumes: A simple
+calibration tool to correct for the effect of wind. Submitted to Volcanica.
 
 ## License - This project is licensed under the MIT license
