@@ -25,8 +25,9 @@ from getAllUncertinity_function import getAllUncertinity
 readPoints = 'y' #If 'y', read points from file (define dataFile, xCol and
                   #yCol). If 'n', define x_point, y_point.
 dataFile = 'exampleData/Sabancaya2018/plumeParameters.csv';
-xCol = 14 #Column of data file containing x-coordinate of pixels
-yCol = 15 #Column of data file containing y-coordinate of pixels
+tCol = 1 #Column of data file containing time parameter
+xCol = 15 #Column of data file containing x-coordinate of pixels
+yCol = 14 #Column of data file containing y-coordinate of pixels
 #x_point = [300 200]; # x coordinate of pixel to claibrate in image frame
 #y_point = [300 200]; # y coordinate of pixel to claibrate in image frame
 
@@ -58,10 +59,10 @@ class cam:
                            #which points will be calibrated on
     ## %%% IF cam.incl in set to -100 i.e., unknown camera, inclination, update 
     ## %   cam.dist2ref, vent.z_ref and vent.centre_pixel_height %%%
-    incl = 20 # Inclination of the camera in degrees (put as -100 if 
+    incl = 14 # Inclination of the camera in degrees (put as -100 if 
                 # unknown)
-    dist2ref             = 20700 # Distance between the camera loction and 
-                                  #a known point in the image frame
+    dist2ref = 7900 # Distance between the camera loction and 
+                    #a known point in the image frame
 
 min_FOVH = 31.9 # Minimum value of the horizontal field of view of the 
                    # camera (lower bound of the uncertinity)
@@ -79,9 +80,9 @@ class vent:
     
 ## %%% Set vent properties
 ventKnown = 'y'    #If 'n', needs to be determined
-x_pixel_vent = 738 #Pixel coordinates of vent. Don't need to be entered 
+x_pixel_vent = 249 #Pixel coordinates of vent. Don't need to be entered 
                     #if ventKnown = 'n'
-y_pixel_vent = 249
+y_pixel_vent = 738
 ventAlt = 5900     #Altitude of vent in m above sea level
 ventLat = -15.75
 ventLong = -71.75
@@ -98,7 +99,6 @@ if cam.incl == -100:
     incl = calcInclination(cam,vent) # Calculate inclination of the camera 
     cam.incl = incl
  
-    
 ## %% Determine vent position
 if ventKnown == 'n':
     A = plt.imread(imageFrame)   # Load in imageFrame
@@ -172,8 +172,9 @@ Ori = np.sum(Ori) / np.size(Ori) # Determine average wind orientation of the
 ## Read in points of interest
 if readPoints == 'y':
     inData = np.genfromtxt(dataFile, delimiter = ',', skip_header = 1)
+    t_param = inData[:, tCol - 1]
     x_point = inData[:, xCol - 1]
-    y_point = inData[:, yCol - 1]
+    y_point = cam.pixel_height - inData[:, yCol - 1]
 
 ##  Calibrate ponts of interest
 
@@ -185,5 +186,8 @@ if readPoints == 'y':
 # - upperUncert_x == the maximum differne in the horizontal poisiton/s with respect the the camera of the point/s of interest
 [upperUncert_x,lowerUncert_x,upperUncert_z,lowerUncert_z,dist,height] = getAllUncertinity(vent_x,vent_z,x_point,y_point,cam,Ori,P_vent,min_FOVH,max_FOVH,min_Ori,max_Ori);
      
-## Need to output data    
-np.savetxt(outFile, height);
+## Need to output data
+height = height.reshape(height.size, 1)
+t_param = t_param.reshape(t_param.size, 1)
+outData = np.hstack((t_param, height))
+np.savetxt(outFile, outData, delimiter = ',');
