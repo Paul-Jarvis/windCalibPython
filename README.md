@@ -116,7 +116,8 @@ https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/propos
 ## Authors
 
 Eveanjelene Snee
-Paul Jarvis
+
+Paul A. Jarvis
 
 ## References
 
