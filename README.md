@@ -88,7 +88,7 @@ $ pip install numpy
 
 Reporting of issues and/or contacting the authors can be achieved through the
 GitHub repository for the code:
-https://github.com/Paul-Jarvis/windyPlume/issues - THE CORRECT URL NEEDS TO BE ENTERED HERE. To report an issue, click on
+https://github.com/Paul-Jarvis/windCalibPython/issues. To report an issue, click on
 the "New issue" icon and leaving a comment. If reporting a bug or unexpected
 behaviour, please provide as much detail as possible, inlcuding a minimal
 example. The authors will make a best endeavour to respond in a reasonable time
@@ -101,7 +101,7 @@ users to contribute their edits to our code. The easiest way to achieve this is
 probably to:
 
 1. Create a fork of the repository. To do this, go to the code repository at
-https://github.com/Paul-Jarvis/windyPlume (NOT CORRECT URL)and click on the "Fork" icon in the
+https://github.com/Paul-Jarvis/windCalibPython and click on the "Fork" icon in the
 top right. More information about how to create a fork and work with the
 subsequent copy of the repository can be found at
 https://docs.github.com/en/get-started/quickstart/fork-a-repo.
@@ -109,7 +109,7 @@ https://docs.github.com/en/get-started/quickstart/fork-a-repo.
 2. Work with your fork to make the desired changes.
 
 3. Submit a pull request, proposing your changes, at
-https://github.com/Paul-Jarvis/windyPlume/pulls (NOT CORRECT URL) by clicking on the "New pull
+https://github.com/Paul-Jarvis/windCalibPython/pulls by clicking on the "New pull
 request" icon. More information on pull requests can be found at
 https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork.
 
@@ -129,4 +129,6 @@ Snee, E., Jarvis, P. A., Simionato, R., Scollo, S., Prestifilippo, M., Degruyter
 W. & Bonadonna, C. (in prep). Image analysis of volcanic plumes: A simple
 calibration tool to correct for the effect of wind. Submitted to Volcanica.
 
-## License - This project is licensed under the MIT license
+## License
+
+This project is licensed under the MIT license
