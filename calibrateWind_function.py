@@ -60,11 +60,11 @@ def calibrateWind(Ori,cam,distanceFromVent,P_vent,P_pixel):
         
         if P_pixel[0] >= P_vent[0]:
             x = -h * math.sin(math.radians((FOV_H/2)-alpha))
-            y = h * math.cos(math.radians((FOV_H/2)-alpha))
+            y = -h * math.cos(math.radians((FOV_H/2)-alpha))
             z = y * math.tan(math.radians(di))
         elif P_pixel[0] < P_vent[0]:
             x = h * math.sin(math.radians((FOV_H/2)-alpha))
-            y = -h * math.cos(math.radians((FOV_H/2)-alpha))
+            y = h * math.cos(math.radians((FOV_H/2)-alpha))
             z = y * math.tan(math.radians(di))
             
     elif (0 < w_tilde) and (w_tilde < 90) or (180 <= w_tilde) and (w_tilde < 270):
