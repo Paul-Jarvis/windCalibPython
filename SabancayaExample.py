@@ -37,7 +37,7 @@ imageFrame = 'exampleData/Sabancaya2018/plume.jpg'
 # %%% Set weather data %%%
 # Vector of year, month, day, hour, minute, second of time at which to 
 # calibrate
-b = "2018-07-31 14:47"
+b = "2018-07-31 14:47:00"
 
 #Names of netCDF files containing wind and geopotential data. If files are
 #the same, give same name for both.

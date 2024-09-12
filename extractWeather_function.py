@@ -43,7 +43,7 @@ def extract_weather(windFile, b, geopotFile, vent_lat, vent_long):
     
     start_time = date.toordinal(date(1900,1,1))+366
     
-    d = dt.strptime(b,'%Y-%m-%d %H:%M')
+    d = dt.strptime(b,'%Y-%m-%d %H:%M:%S')
     end_time =  datenum(d)
     
     time_want = (end_time - start_time)*24
