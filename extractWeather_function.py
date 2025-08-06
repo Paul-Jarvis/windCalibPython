@@ -84,7 +84,7 @@ def extract_weather(windFile, b, geopotFile, vent_lat, vent_long):
         v_interp_f = interp1d(time,np.transpose(v))#,time_want)
         new_v = v_interp_f(time_want)        
         
-    
+
     class netCDF:
         #temp = new_temp
         z = new_z
