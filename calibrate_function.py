@@ -31,7 +31,10 @@ def calibrate(cam,P_pixel):
     diff_z = (dist_diff/2)*(math.tan(incl - (FOV_V/2) + (i-1)*delta_theta_z) + math.tan(incl - (FOV_V/2) + (i*delta_theta_z)))
     
     # Calibrate for length
-    diff_h = (dist_diff/2)*(math.tan(incl_h - (FOV_H/2) + (j-1)*delta_theta_h) + math.tan(incl_h - (FOV_H/2) + (j*delta_theta_h)))
+    #diff_h = (dist_diff/2)*(math.tan(incl_h - (FOV_H/2) + (j-1)*delta_theta_h) + math.tan(incl_h - (FOV_H/2) + (j*delta_theta_h)))
+    diff_h = (dist_diff/2) * (math.tan(-(FOV_H/2) + (j - 1) * delta_theta_h) +
+                              math.tan(incl_h - (FOV_H / 2) +
+                                       (j * delta_theta_h)))
 
     
     return diff_z, diff_h
