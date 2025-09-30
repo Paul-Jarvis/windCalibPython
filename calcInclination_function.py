@@ -20,11 +20,12 @@ def calcInclination(cam,vent):
    # phii = math.degrees(phii)
     
     z_refPixel = pixel_height - vent.centre_pixel_height
-    
-    #incl = phii - atand((2*z_refPixel) / (pixel_height-1)*tand(FOV_V/2))
-    incl = phii +  math.atan((1 - ((2*z_refPixel)/pixel_height))*math.tan(math.radians(FOV_V)/2))
+
+    ## COMMENTED OUT LINE IN INCORREECT EXPRESSION, EQUATION 14 IN SNEE ET AL.
+    #  (2023)
+    #incl = phii +  math.atan((1 - ((2*z_refPixel)/pixel_height))*math.tan(math.radians(FOV_V/2)))
+    incl = FOV_V * (0.5 - z_refPixel / pixel_height) + phii
 
     incl = math.degrees(incl)
     
-
     return incl
