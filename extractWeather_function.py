@@ -24,7 +24,6 @@ def extract_weather(windFile, b, geopotFile, vent_lat, vent_long):
     
     z = f_geopot['z'][:]
     time = f_wind['time'][:]
-    print(time)
     #pres = f.variables['level']
     #temp = f.variables['t']
     u = f_wind['u'][:]
@@ -48,7 +47,6 @@ def extract_weather(windFile, b, geopotFile, vent_lat, vent_long):
     end_time =  datenum(d)
     
     time_want = (end_time - start_time)*24
-    print(time_want)
     #time = np.squeeze(time)
     #temp_interp_f = interp1d(time,np.transpose(temp))#,time_want)
     #new_temp = temp_interp_f(time_want)

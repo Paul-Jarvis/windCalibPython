@@ -28,7 +28,7 @@ def Calibrate_allTogether(vent_x,vent_z,x_select,y_select,cam,Ori,P_vent):
         #wait = input("Press Enter to continue.")
         
         if cam.oriCentreLine + 180 <360:
-            omega_prime = cam.orCentrLine + 180
+            omega_prime = cam.oriCentrLine + 180
         elif cam.oriCentreLine + 180 >360:
             omega_prime = cam.oriCentreLine - 180
             
