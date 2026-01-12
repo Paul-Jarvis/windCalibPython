@@ -10,9 +10,10 @@ from datetime import date
 import sys
 from scipy.interpolate import interp1d
 from datetime import datetime as dt
+import pandas as pd
 
 def datenum(d):
-    return 366+ d.toordinal() + (d - dt.fromordinal(d.toordinal())).total_seconds()/(24*60*60)
+    return 366+ d.dt.toordinal() + (d - dt.fromordinal(d.toordinal())).total_seconds()/(24*60*60)
 
 
 
@@ -43,9 +44,11 @@ def extract_weather(windFile, b, geopotFile, vent_lat, vent_long):
     
     start_time = date.toordinal(date(1900,1,1))+366
     
-    d = dt.strptime(b,'%Y-%m-%d %H:%M:%S')
+    #d = dt.strptime(b,'%Y-%m-%d %H:%M:%S')
+    d = pd.to_datetime(b)
     end_time =  datenum(d)
-    
+    print(end_time)
+    exit()
     time_want = (end_time - start_time)*24
     #time = np.squeeze(time)
     #temp_interp_f = interp1d(time,np.transpose(temp))#,time_want)

@@ -14,6 +14,11 @@ def Calibrate_allTogether(vent_x,vent_z,x_select,y_select,cam,Ori,P_vent):
     dist = np.zeros(np.size(x_select))
     height = np.zeros(np.size(x_select))
 
+    if np.size(x_select) > 1 and np.size(Ori) == 1:
+        windOri = np.ones() * Ori
+    else:
+        windOri = Ori
+    
     for j in np.linspace(0,np.size(x_select)-1,np.size(x_select)):
         j = int(j)
         P_pixel = [x_select[j],y_select[j]]
@@ -21,15 +26,17 @@ def Calibrate_allTogether(vent_x,vent_z,x_select,y_select,cam,Ori,P_vent):
 
         distanceFromVent_P1 = abs(diff_x - vent_x)
 
-        [x,y,z,lambda_,w_tilde] = calibrateWind(Ori,cam,distanceFromVent_P1,P_vent,P_pixel)
+        [x,y,z,lambda_,w_tilde] = calibrateWind(windOri[j], cam,
+                                                distanceFromVent_P1, P_vent,
+                                                P_pixel)
         
 
         #print(z)
         #wait = input("Press Enter to continue.")
         
-        if cam.oriCentreLine + 180 <360:
+        if cam.oriCentreLine + 180 < 360:
             omega_prime = cam.oriCentreLine + 180
-        elif cam.oriCentreLine + 180 >360:
+        elif cam.oriCentreLine + 180 > 360:
             omega_prime = cam.oriCentreLine - 180
             
         if P_pixel[0] >= P_vent[0]:
